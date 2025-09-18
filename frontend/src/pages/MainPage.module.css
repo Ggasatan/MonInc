@@ -1,0 +1,6 @@
+.main-page-content {
+  /* 💥 flex: 1 하나면 모든 게 해결된다! */
+  flex: 1;
+  position: relative; /* 캔버스가 이 안에서 제대로 크기를 잡도록 기준점 역할 */
+  height: 100vh;
+}

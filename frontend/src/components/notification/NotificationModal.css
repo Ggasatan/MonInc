@@ -1,0 +1,30 @@
+/* NotificationModal.css */
+
+.notification-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.notification-modal-content {
+  position: absolute;
+  top: 75px; /* 헤더 바로 아래 위치 */
+  right: 20px; /* 화면 우측에 위치 */
+  z-index: 1010;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

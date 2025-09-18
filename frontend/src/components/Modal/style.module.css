@@ -1,0 +1,52 @@
+.overlay {
+  position: fixed; /* 화면 전체를 기준으로 위치 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* ✅ [핵심] 다른 모든 요소들보다 위에 있도록 z-index 값을 아주 높게 줍니다. */
+  z-index: 9999; 
+}
+
+.content {
+  position: relative;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  min-width: 400px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

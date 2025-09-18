@@ -1,0 +1,86 @@
+/* src/components/Header/Header.module.css */
+
+/* --- 헤더 전체를 감싸는 컨테이너 --- */
+.headerContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 4rem;
+  z-index: 1000;
+  
+  /* ✅ 기본 스타일: 흰색 배경과 그림자 (메인 외 페이지용) */
+  background-color: #ffffff;
+  border-bottom: 1px solid #D1D5DB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.transparentHeader {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+.transparentHeader .navLinks a{
+  color: white;
+}
+
+/* --- 1. 로고 --- */
+.logo {
+  /* ✅ 제거: 기존의 border, padding, 텍스트 스타일 모두 제거 */
+  text-decoration: none;
+}
+
+/* ✅ 추가: 로고 이미지의 크기를 제어하기 위한 스타일 */
+.logo img {
+  height: 30px; /* ❗ 중요: 로고 크기에 맞게 이 값을 조정해주십시오. */
+  display: block; /* 이미지 하단의 불필요한 여백 제거 */
+}
+
+
+/* --- 2. 네비게이션 --- */
+/* 모든 메뉴 링크를 감싸는 그룹 */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* 메뉴 사이의 간격 */
+}
+
+/* 메뉴 링크(a 태그) 개별 스타일 */
+.navLinks a {
+  font-size: 1rem;
+  font-weight: bold; /* 조금 더 부드러운 폰트 두께로 변경 */
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s ease;
+
+  /* ✅ 변경: 참고 사이트처럼 흰색(#FFFFFF) 또는 부드러운 회색(#D1D5DB)으로 변경 */
+  color: black;
+  
+  /* ✅ 제거: 밑줄 효과 관련 position 속성 제거 */
+}
+
+/* 메뉴 링크에 마우스를 올렸을 때 */
+.navLinks a:hover {
+  /* ✅ 변경: 호버 시 따뜻한 노란색(#FFC600)으로 변경하여 포인트 */
+  color: #ffc600;
+  transform: translateY(-2px); /* 살짝 위로 올라가는 효과 추가 */
+}
+
+/* ✅ 제거: 기존의 복잡한 ::after 밑줄 효과 제거 */
+
+
+/* ✅ 변경: 로그아웃 버튼 스타일을 다른 메뉴와 통일하여 미니멀하게 변경 */
+.logoutButton {
+  /* 다른 a 태그와 동일한 스타일을 상속받으므로 별도 스타일 최소화 */
+  /* 필요하다면 여기에 추가 스타일을 정의할 수 있습니다. */
+  /* 예: background-color: transparent; border: none; */
+}
+
+.logoutButton:hover {
+  /* 호버 효과는 다른 링크와 동일하게 적용됩니다. */
+}

@@ -1,0 +1,98 @@
+.container {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 30px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse; /* 테이블 선 겹침 방지 */
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle; /* 내용물 세로 중앙 정렬 */
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+}
+
+/* 각 컬럼의 너비를 대략적으로 지정 */
+.colSaveName { width: 15%; }
+.colProduct { width: 15%; }
+.colDate { width: 15%; }
+.colOptions { width: 45%; }
+.colActions { width: 10%; text-align: center; }
+
+
+.optionsList {
+  display: flex;
+  flex-wrap: wrap; /* 옵션이 많으면 다음 줄로 넘김 */
+  gap: 10px; /* 옵션 아이템 사이의 간격 */
+  align-items: center;
+}
+
+.deleteButton {
+  padding: 8px 16px;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.noData {
+  text-align: center;
+  padding: 50px;
+  color: #868e96;
+}
+
+.materialList {
+  list-style-type: none; /* 리스트 앞의 점 제거 */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* 각 항목 사이의 간격 */
+}
+
+.materialItem {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 내부 요소들 사이의 간격 */
+  font-size: 14px;
+}
+
+.partName {
+  font-weight: bold;
+  color: #555;
+}
+
+.colorSwatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.colorCode {
+  color: #888;
+  font-family: monospace; /* 코드는 고정폭 글꼴로 */
+}

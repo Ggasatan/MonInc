@@ -1,0 +1,181 @@
+/* --- 전체 페이지 컨테이너 --- */
+
+.login-page-container {
+  flex-grow: 1; /* 부모가 준 공간을 꽉 채움 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; 
+  padding: 2rem;
+  margin-top: 80px;
+}
+
+/* --- 로그인 폼 전체 래퍼 --- */
+.login-form-wrapper {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #e9ecef;
+}
+
+/* --- 폼 제목 --- */
+.form-title {
+  color: #212529;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2.25rem;
+  font-weight: 800;
+}
+
+/* --- 입력 필드 그룹 --- */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #FFC600; /* 포인트 색상 */
+  box-shadow: 0 0 0 4px rgba(0, 128, 55, 0.15);
+}
+
+/* --- 기본 로그인 버튼 --- */
+.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #4F3A7D;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #4F3A7D;
+}
+
+.btn-primary:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+/* --- 에러 메시지 --- */
+.error-message {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-bottom: -0.5rem;
+  text-align: center;
+}
+
+/* --- 아이디/비번찾기/회원가입 링크 --- */
+.form-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-links a {
+  color: #495057;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+.form-links span {
+  color: #dee2e6;
+}
+
+
+/* --- 소셜 로그인 구분선 ("또는") --- */
+.social-login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #adb5bd;
+  font-size: 0.85rem;
+  margin: 2rem 0;
+}
+
+.social-login-divider::before,
+.social-login-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.social-login-divider:not(:empty- μας)::before {
+  margin-right: 1em;
+}
+
+.social-login-divider:not(:empty- μας)::after {
+  margin-left: 1em;
+}
+
+/* --- 소셜 로그인 버튼 그룹 --- */
+.social-login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.google-btn {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.kakao-btn {
+  background-color: #FEE500;
+  color: #191919;
+  border-color: #FEE500;
+}
+
+.naver-btn {
+  background-color: #03C75A;
+  color: white;
+  border-color: #03C75A;
+}

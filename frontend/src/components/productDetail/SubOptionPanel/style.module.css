@@ -1,0 +1,184 @@
+
+/* SubOptionPanel/style.module.css */
+
+.partSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* 버튼 사이 간격 */
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.partButton {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* 좀 더 둥글게 */
+  background-color: transparent;
+  color: #555;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.partButton:hover {
+  background-color: #ffffff;
+  /* ❗️ 형의 로고 노란색 코드로 변경해주세요! */
+  border-color: #FFC700; 
+  color: #333;
+}
+
+.partButton.active {
+  /* ❗️ 형의 로고 노란색 코드로 변경해주세요! */
+  background-color: #FFC700; 
+  /* ❗️ 형의 로고 노란색 코드로 변경해주세요! */
+  border-color: #FFC700;
+  color: white;
+}
+
+/* 재질 편집 영역 */
+.materialEditor {
+  padding: 20px 16px;
+}
+
+.editorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.editorRow label {
+  font-weight: bold;
+  margin-right: 16px;
+}
+
+.editorRow input[type="range"] {
+  width: 60%;
+}
+
+/* react-color 커스텀 */
+.colorSwatchWrap {
+  padding: 5px;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.colorSwatch {
+  width: 50px;
+  height: 20px;
+  border-radius: 2px;
+}
+
+.colorPickerPopover {
+  position: absolute;
+  z-index: 2;
+  right: 20px; /* 위치는 조정 필요 */
+}
+.colorPickerCover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+/* 저장/구매 버튼 영역 */
+.actionButtonsSection {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  border-top: 1px solid #eee;
+
+  margin-top: auto; /* 패널 하단에 고정시키는 효과 */
+}
+
+/* MainOptionBar에서 가져온 스타일 */
+.actionIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+}
+.actionIcon:hover {
+    background-color: #e9e9e9;
+}
+.actionIcon .iconPlaceholder {
+    width: 32px;
+    height: 32px;
+    background-color: #ccc;
+    margin-bottom: 4px;
+}
+
+.panelContainer {
+  width: 400px;
+  height: 70%;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25%;
+
+  /* ✅ [핵심 수정] transform과 visibility를 사용한 애니메이션 */
+  transition: transform 0.3s ease-in-out, visibility 0.3s;
+  transform: translateX(calc(100% + 8px)); /* 오른쪽 화면 밖으로 밀어냄 */
+  visibility: hidden; /* 보이지도 않고 공간도 차지하지 않음 */
+}
+
+/* ✅ isOpen이 true일 때 적용될 스타일 */
+.panelContainer.open {
+  transform: translateX(0); /* 원래 위치로 돌아옴 */
+  visibility: visible; /* 다시 보이게 함 */
+}
+
+/* ... 닫기 버튼, 헤더, 컨텐츠 영역 스타일은 이전과 동일 ... */
+.closeButton {
+  position: absolute; left: -20px; top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff; border: 1px solid #ccc;
+  border-radius: 50%; width: 40px; height: 40px;
+  cursor: pointer; font-size: 20px;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.actionButtonsContainer {
+  display: flex; /* 2분할을 위한 flex 설정 */
+  width: 100%;
+  margin-top: auto; /* 항상 하단에 붙도록 */
+}
+
+.actionButton {
+  flex: 1; /* 두 버튼이 1:1 비율로 공간을 차지 */
+  padding: 18px 0;
+  border: none;
+ 
+  background-color: white;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* 두 버튼 사이에 세로 구분선 추가 */
+.actionButton:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+.panelHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.panelTitle { font-size: 20px; font-weight: bold; }
+.contentArea {   flex-grow: 1; 
+  overflow-y: auto; /* 내용이 길어지면 스크롤 */}
+.actionButtons { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+.saveButton { padding: 14px; border-radius: 8px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; background-color: #1a73e8; color: #fff; }

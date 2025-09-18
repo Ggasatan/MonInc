@@ -1,0 +1,78 @@
+.container {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 30px;
+  height: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse; /* 테이블 선 겹침 방지 */
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle; /* 내용물 세로 중앙 정렬 */
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+}
+
+/* 각 컬럼의 너비를 대략적으로 지정 */
+.colOrderId { width: 10%; }
+.colProduct { width: 20%; }
+.colOptions { width: 35%; }
+.colDate { width: 15%; }
+.colPrice { width: 10%; text-align: right; }
+.colActions { width: 10%; text-align: center; }
+
+
+.optionsList {
+  display: flex;
+  flex-wrap: wrap; /* 옵션이 많으면 다음 줄로 넘김 */
+  gap: 10px; /* 옵션 아이템 사이의 간격 */
+  align-items: center;
+}
+
+.cancelButton  {
+  padding: 8px 16px;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.cancelButton:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+  border-color: #adb5bd;
+}
+
+.statusText {
+  color: #868e96;
+  font-weight: bold;
+}
+
+.noData {
+  text-align: center;
+  padding: 50px;
+  color: #868e96;
+}

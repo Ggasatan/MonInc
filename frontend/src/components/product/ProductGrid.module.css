@@ -1,0 +1,85 @@
+/* src/components/product/ProductGrid.module.css */
+
+/* ✅ 새로운 스타일: 참고 이미지 레이아웃을 적용한 아이템 컨테이너 */
+.itemContainer {
+  display: flex;
+  align-items: center; /* 세로축 중앙 정렬 */
+  gap: 40px; /* 이미지와 정보 사이의 간격 */
+  width: 100%;
+  max-width: 1200px; /* 아이템의 최대 너비를 제한하여 가독성 확보 */
+  padding: 30px;
+  justify-content: center;
+  border-radius: 20px; /* 부드러운 모서리 */
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* .itemContainer:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 12px 30px rgba(149, 157, 165, 0.25);
+} */
+
+/* 이미지 영역 */
+.imageWrapper {
+  /* 기존 스타일에 추가 또는 수정 */
+  width: 500px; /* 예시 너비 */
+  height: 350px; /* ✅ [핵심] 뷰어가 그려질 높이를 반드시 지정해야 합니다! */
+  background-color: #ffffff; /* 모델 로딩 중에 보여줄 배경색 */
+  border-radius: 8px; /* 모서리를 둥글게 */
+  overflow: hidden; /* 캔버스가 튀어나가지 않도록 */
+}
+
+/* 정보 영역 */
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 12px;
+}
+
+.productName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.productStatus {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  color: #555;
+  align-self: flex-start; /* 상태 태그 크기에 맞게 */
+}
+
+.productDetails {
+  font-size: 16px;
+  color: #666;
+}
+
+.productPrice {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4F3A7D; /* 군주의 보라색으로 가격 강조 */
+}
+
+.customButton {
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: 2px solid #E5D737; /* 네온 그린 테두리 */
+  background-color: white;
+  color: #E5D737; /* 네온 그린 텍스트 */
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start; /* 버튼 크기에 맞게 */
+}
+
+.customButton:hover {
+  background-color: #E5D737;
+  color: white;
+  transform: scale(1.05);
+}

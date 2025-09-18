@@ -1,0 +1,73 @@
+# docker-compose.prod.yml
+# AWS EC2 서버 배포용 Docker Compose 파일
+
+version: '3.8'
+
+services:
+  # =======================================
+  #  1. 데이터베이스 (MySQL) - RDS로 대체 예정
+  # =======================================
+  # 초기 테스트를 위해 포함하지만, 최종적으로는 AWS RDS를 사용할 것을 권장합니다.
+  # RDS를 사용하게 되면 이 'db' 서비스는 제거합니다.
+  db:
+    image: mysql:8.0
+    container_name: project-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - monster-data:/var/lib/mysql
+    restart: always
+
+  # =======================================
+  #  2. 인메모리 캐시 (Redis)
+  # =======================================
+  redis:
+    image: redis:latest
+    container_name: project-redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  # =======================================
+  #  3. 백엔드 서버 (Spring Boot)
+  # =======================================
+  # backend:
+  #   container_name: project-backend
+  #   build:
+  #     context: ./backend # ./backend 폴더의 Dockerfile을 사용
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   environment:
+  #     # Docker 네트워크 내의 서비스 이름(db, redis)으로 접속
+  #     - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}?useUnicode=true&characterEncoding=UTF-8
+  #     - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+  #     - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
+  #     - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+  #     - SPRING_REDIS_HOST=redis # 서비스 이름으로 접근
+  #     - SPRING_REDIS_PORT=6379
+  #     - SPRING_MAIL_USERNAME=${SPRING_MAIL_USERNAME}
+  #     - SPRING_MAIL_PASSWORD=${SPRING_MAIL_PASSWORD}
+  #   restart: always
+
+  # =======================================
+  #  4. 통신 서버 (NestJS)
+  # =======================================
+  communication:
+    container_name: project-communication
+    build:
+      context: ./communication # ./communication 폴더의 Dockerfile을 사용
+    ports:
+      - "3001:3001"
+    restart: always
+
+# Docker가 관리할 영구 데이터 볼륨 정의
+volumes:
+  monster-data:

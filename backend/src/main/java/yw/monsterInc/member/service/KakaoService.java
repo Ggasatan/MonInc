@@ -1,0 +1,166 @@
+package yw.monsterInc.member.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+// --- 형의 프로젝트에 맞게 import 경로 수정 ---
+import yw.monsterInc.global.exception.EmailAlreadyExistsException;
+import yw.monsterInc.member.Dto.Kakao.KakaoResponseDto;
+import yw.monsterInc.member.Dto.Kakao.KakaoTokenDto;
+import yw.monsterInc.member.Dto.LoginResponseDto; // DTO 패키지 경로
+import yw.monsterInc.member.constant.LoginStatus;
+import yw.monsterInc.member.entity.Member;
+import yw.monsterInc.member.Repository.MemberRepository;
+import yw.monsterInc.global.JwtTokenProvider;
+import yw.monsterInc.member.constant.MemberRole; // MemberRole enum 경로
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.Collections;
+import java.util.Optional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class KakaoService {
+
+    private final MemberRepository memberRepository; // ✅ AccountRepository -> MemberRepository
+    private final JwtTokenProvider jwtTokenProvider;
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    // --- @Value 어노테이션으로 yml 값 주입 (기존과 동일) ---
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private String KAKAO_CLIENT_ID;
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    private String KAKAO_REDIRECT_URI;
+    @Value("${spring.security.oauth2.client.registration.kakao.client-secret}")
+    private String KAKAO_CLIENT_SECRET;
+    @Value("${spring.security.oauth2.client.provider.kakao.token-uri}")
+    private String KAKAO_TOKEN_URI;
+    @Value("${spring.security.oauth2.client.provider.kakao.user-info-uri}")
+    private String KAKAO_USER_INFO_URI;
+
+    /**
+     * [구조 유지] 인가 코드로 액세스 토큰을 받아오는 메소드
+     */
+    @Transactional
+    public KakaoTokenDto  getKakaoAccessToken(String code) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", KAKAO_CLIENT_ID);
+        params.add("redirect_uri", KAKAO_REDIRECT_URI);
+        params.add("code", code);
+        params.add("client_secret", KAKAO_CLIENT_SECRET);
+
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    KAKAO_TOKEN_URI,
+                    HttpMethod.POST,
+                    kakaoTokenRequest,
+                    String.class
+            );
+            KakaoTokenDto kakaoTokenDto= null;
+            kakaoTokenDto = objectMapper.readValue(response.getBody(), KakaoTokenDto.class);
+            return kakaoTokenDto;
+        } catch (Exception e) {
+            throw new RuntimeException("카카오 토큰을 받아오는데 실패했습니다.", e);
+        }
+    }
+
+    /**
+     * [수정] 액세스 토큰으로 사용자 정보를 받아와 MemberEntity를 반환하는 메소드
+     * - DB 조회 로직 제거, 오직 카카오 정보 조회 및 Member 객체 생성 책임만 가짐
+     */
+    public Member getKakaoInfo(String kakaoAccessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + kakaoAccessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        HttpEntity<MultiValueMap<String, String>> accountInfoRequest = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    KAKAO_USER_INFO_URI,
+                    HttpMethod.POST,
+                    accountInfoRequest,
+                    String.class
+            );
+
+            KakaoResponseDto kakaoResponseDto = objectMapper.readValue(response.getBody(), KakaoResponseDto.class);
+            log.info("Phone_number : "+kakaoResponseDto.getKakaoAccount().getPhone_number());
+            log.info("Birth Day : "+kakaoResponseDto.getKakaoAccount().getBirthday());
+            log.info("Birth Day : "+kakaoResponseDto.getKakaoAccount().getBirthday());
+            // ✅ 카카오 정보로 Member '초안'을 만들어서 반환
+            return Member.builder()
+                    .name(kakaoResponseDto.getKakaoAccount().getName())
+                    .email(kakaoResponseDto.getKakaoAccount().getEmail())
+                    .phoneNum(kakaoResponseDto.getKakaoAccount().getPhone_number().
+                            replace("+82 ", "0").replace("-", ""))
+                    .birthDate(kakaoResponseDto.getKakaoAccount().getBirthyear()
+                    +kakaoResponseDto.getKakaoAccount().getBirthday())
+                    .socialType("KAKAO")
+                    .socialId(kakaoResponseDto.getId()+"")
+                    .memberRole(MemberRole.USER) // 기본 역할 부여
+                    .build();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("카카오 사용자 정보를 조회하는데 실패했습니다.", e);
+        }
+    }
+
+    /**
+     * [수정] 카카오 정보로 최종 로그인/회원가입 처리 및 JWT 발급을 하는 메소드
+     */
+    public LoginResponseDto kakaoLogin(String kakaoAccessToken) {
+        // 1. 액세스 토큰으로 카카오 사용자 정보 조회 (Member 초안 획득)
+        Member kakaoMemberInfo = getKakaoInfo(kakaoAccessToken);
+
+        Member member = null;
+
+        Optional<Member> memberBySocialId = memberRepository.findBySocialId(kakaoMemberInfo.getSocialId());
+        if(memberBySocialId.isPresent()){
+            System.out.println("기존 소셜 계정으로 로그인합니다.");
+            member = memberBySocialId.get();
+        } else {
+            Optional<Member> memberByEmail = memberRepository.findByEmail(kakaoMemberInfo.getEmail());
+            if (memberByEmail.isPresent()){
+                System.out.println("이메일 중복 발견! 회원가입을 중단합니다.");
+                throw new EmailAlreadyExistsException(
+                        "해당 이메일(" + kakaoMemberInfo.getEmail() + ")로 이미 가입된 계정이 존재합니다.");
+            } else {
+                System.out.println("완전 신규 회원으로 가입합니다.");
+                member = memberRepository.save(kakaoMemberInfo);
+            }
+        }
+
+        // 3. 우리 서비스 전용 JWT 토큰 생성
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                member.getEmail() != null ? member.getEmail() : member.getSocialId().toString(),
+                null,
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_"+member.getMemberRole().name())) // .name() 또는 .toString()
+        );
+        String jwtToken = jwtTokenProvider.createToken(authentication, member.getId());
+
+        // 4. 최종 응답 DTO 생성 및 반환
+        return new LoginResponseDto(LoginStatus.SUCCESS, member, jwtToken);
+    }
+}

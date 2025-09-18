@@ -1,0 +1,37 @@
+
+.bell-container {
+  position: relative;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #0071DE; */
+  border-radius: 50%;
+}
+
+.bell-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid white;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px; /* 수정: 텍스트 수직 정렬을 위해 line-height 조정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(10%, -10%);
+}

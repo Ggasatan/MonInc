@@ -1,0 +1,14 @@
+/* 이 파일에는 body 관련 전역 스타일만 있어야 해! */
+
+/* MainPage가 활성화됐을 때만 body 태그에 적용될 스타일 */
+body.main-page-active {
+  overscroll-behavior: none;
+  background: #d8d7d7;
+  overflow: hidden; /* 브라우저 기본 스크롤바 숨기기 */
+  font-family: 'Inter var', sans-serif;
+}
+
+/* MainPage 활성화 시 main-content 영역은 마우스/스크롤 이벤트를 통과시키도록 설정 */
+body.main-page-active .main-content {
+  pointer-events: none;
+}

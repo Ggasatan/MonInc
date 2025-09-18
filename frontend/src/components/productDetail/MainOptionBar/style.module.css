@@ -1,0 +1,20 @@
+/* MainOptionBar/style.module.css */
+.mainOptionBar {
+  width: 90px;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+/* ... 이하 .optionIcons, .actionIcons, .optionIcon 등 이전과 동일 ... */
+.optionIcons, .actionIcons { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.actionIcons { width: 100%; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+.optionIcon, .actionIcon { cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.optionIcon.selected { color: #1a73e8; font-weight: bold; }
+.iconPlaceholder { width: 40px; height: 40px; background-color: #e0e0e0; border-radius: 4px; }

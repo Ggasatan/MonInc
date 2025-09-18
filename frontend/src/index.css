@@ -1,0 +1,50 @@
+/* src/index.css */
+
+/* --- 1. 전역 스타일 초기화 (Reset) --- */
+/* 모든 요소의 기본 여백을 제거하고, box-sizing을 통일합니다. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- 2. HTML 및 Body 기본 설정 --- */
+/* html과 body가 항상 화면 전체 높이를 차지하도록 준비시킵니다. */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+/* --- 3. 기본 폰트 및 색상 설정 --- */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* 형님 사이트에 맞는 폰트로 변경 */
+  line-height: 1.6;
+  font-weight: 400;
+  color: #212529; /* 기본 텍스트 색상 (짙은 회색) */
+  background-color: #ffffff; /* 기본 배경색 (흰색) */
+  
+  /* 텍스트 렌더링을 부드럽게 합니다. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 4. React 앱 루트(#root) 설정 --- */
+/* React 앱이 렌더링되는 #root 요소도 전체 높이를 차지하도록 합니다. */
+#root {
+  height: 100%;
+}
+
+/* --- 5. 링크 및 버튼 기본 스타일 (선택사항) --- */
+/* 사이트 전체의 링크 스타일을 통일합니다. */
+a {
+  color: #008037; /* 포인트 컬러(녹색)로 설정 */
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* 버튼의 기본 커서 모양을 포인터로 설정합니다. */
+button {
+  cursor: pointer;
+}

@@ -1,0 +1,24 @@
+/* src/pages/ProductListPage/style.module.css */
+
+
+.pageContainer {
+
+  max-width: 1200px; /* 페이지의 최대 너비를 제한해서 너무 넓어지지 않게 */
+  margin: 0 auto;    /* 페이지를 중앙에 위치시킴 */
+  padding: 40px 20px; /* 상하, 좌우 여백 */
+  padding-top: 120px;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 24px; /* 제목과 목록 사이의 간격 */
+  text-align: center;
+}
+
+/* 여기가 핵심! 상품 목록을 담을 그리드 컨테이너 */
+.productListGrid {
+  display: flex;
+  flex-direction: column; /* 아이템을 세로로 쌓음 */
+  align-items: center;   /* 아이템을 가로축 중앙에 배치 */
+  gap: 48px; /* 아이템들 사이의 세로 간격을 넉넉하게 */
+}
