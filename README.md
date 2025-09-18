@@ -1,4 +1,4 @@
-# 🎨 Nexus - Creative Auction Platform
+# 👻MonInc - 3D Model effect shop site
 
 <div align="center">
 
@@ -7,7 +7,7 @@
 ![NestJS](https://img.shields.io/badge/NestJS-11.0.1-E0234E?logo=nestjs)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)
 
-**실시간 입찰과 창작물 거래를 위한 종합 경매 플랫폼**
+**3D모델을 활용한 효과와 모델 커스텀 주문 사이트**
 
 [🚀 시작하기](#-빠른-시작) • [📚 문서](#-프로젝트-구조) • [💡 기능](#-주요-기능)
 
@@ -17,21 +17,19 @@
 
 ## 📌 프로젝트 소개
 
-**Nexus**는 창작자와 구매자를 연결하는 실시간 경매 플랫폼입니다. 디지털 창작물, 예술 작품, 프로젝트를 실시간으로 거래할 수 있으며, WebSocket 기반의 실시간 입찰 시스템과 리치 에디터를 통한 상세한 상품 소개가 가능합니다.
+**MonInc**는 3D모델을 활용한 효과와 옵션을 실시간으로 적용, 주문하는 사이트 입니다. 3D를 활용한 효과와 간단한 모델을 활용한 게임, WebSocket으로 실시간 채팅과 알림기능도 함께 구현했습니다.
 
 
 ## 🏗️ 시스템 아키텍처
 
 ### Frontend
-- **Thymeleaf**: 서버 사이드 렌더링 (SSR)
-- **React**: 채팅 관리자 및 에디터 컴포넌트
-
+- **Typescript** & **React** 화면 전반을 구성, 3D모델 렌더링, 효과 구현
 ### Backend
 - **Spring Boot** (Port 8080): 메인 API 서버
 - **NestJS** (Port 3000): WebSocket 실시간 통신
 
 ### Data
-- **MariaDB**: 메인 데이터베이스
+- **MysqlDB**: 메인 데이터베이스
 - **Redis**: 캐싱 및 세션 관리
 
 ## 🚀 빠른 시작
@@ -65,45 +63,23 @@ Docker Compose를 통해 전체 서비스를 한 번에 실행하거나, 개발 
 | React | 18.3.1 | SPA 프레임워크 |
 | TypeScript | 5.0+ | 타입 안정성 |
 | Vite | 5.x | 빌드 도구 |
-| TailwindCSS | 3.4 | 스타일링 |
-| TipTap | 2.x | 리치 텍스트 에디터 |
-| Thymeleaf | 3.x | 서버 사이드 렌더링 |
+| three | 0.179.1 | 3D 렌더링 도구 |
 
 ### Infrastructure
 | 기술 | 용도 |
 |------|------|
-| MariaDB | 메인 데이터베이스 |
+| MysqlDB | 메인 데이터베이스 |
 | Redis | 캐싱 및 세션 관리 |
 | Docker | 컨테이너화 |
 | AWS RDS | 프로덕션 DB |
 
 ## 💡 주요 기능
 
-### 경매 시스템
-- 실시간 입찰 (WebSocket)
-- 자동 경매 종료
-- 즉시 구매 기능
-- 입찰 기록 관리
-- 카테고리별 분류
-
-### 커뮤니케이션
-- 실시간 채팅
-- 알림 시스템
-- 상품 Q&A
-
-### 컨텐츠 관리
-- TipTap 리치 텍스트 에디터
-- 이미지 업로드
-- 실시간 미리보기
-
-### 결제
-- 아임포트 결제 연동
-- 다양한 결제 수단 지원
-
-### 관리자
-- 회원 관리
-- 경매 관리
-- 통계 대시보드
+###
+-
+-
+-
+-
 
 ## 📁 프로젝트 구조
 
