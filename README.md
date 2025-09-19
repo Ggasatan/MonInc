@@ -83,6 +83,6 @@ Docker Compose를 통해 전체 서비스를 한 번에 실행하거나, 개발 
 
 <div align="center">
 
-**Nexus Portfolio Platform © 2025**
+**MonInc Portfolio © 2025**
 
 </div>
